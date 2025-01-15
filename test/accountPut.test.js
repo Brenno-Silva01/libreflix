@@ -20,7 +20,7 @@ describe('Teste do método accountPut', () => {
     sinon.restore();
   });
 
-  it('CT1: password presente, válido e confirmado (VVV)', (done) => {
+  it('password presente, válido e confirmado', (done) => {
     const mockUser = { save: sinon.stub().yields(null) };
     userStub.yields(null, mockUser);
 
@@ -35,7 +35,7 @@ describe('Teste do método accountPut', () => {
       });
   });
 
-  it('CT2: password ausente (FVV)', (done) => {
+  it('password ausente', (done) => {
     chai
       .request(app)
       .put('/account')
@@ -47,7 +47,7 @@ describe('Teste do método accountPut', () => {
       });
   });
 
-  it('CT3: password presente, mas muito curta (VFV)', (done) => {
+  it('password presente, mas muito curta', (done) => {
     chai
       .request(app)
       .put('/account')
@@ -59,7 +59,7 @@ describe('Teste do método accountPut', () => {
       });
   });
 
-  it('CT4: password presente, mas confirmação falha (VVF)', (done) => {
+  it('password presente, mas confirmação falha', (done) => {
     chai
       .request(app)
       .put('/account')
@@ -71,7 +71,7 @@ describe('Teste do método accountPut', () => {
       });
   });
 
-  it('CT5: Erro no e-mail (FFV)', (done) => {
+  it('Erro no e-mail', (done) => {
     chai
       .request(app)
       .put('/account')
@@ -83,7 +83,7 @@ describe('Teste do método accountPut', () => {
       });
   });
 
-  it('CT6: E-mail vazio (FVF)', (done) => {
+  it('E-mail vazio', (done) => {
     chai
       .request(app)
       .put('/account')
@@ -95,7 +95,7 @@ describe('Teste do método accountPut', () => {
       });
   });
 
-  it('CT7: Erro de duplicidade (VV)', (done) => {
+  it('Erro de duplicidade', (done) => {
     const mockUser = { save: sinon.stub().yields({ code: 11000 }) };
     userStub.yields(null, mockUser);
 
@@ -110,7 +110,7 @@ describe('Teste do método accountPut', () => {
       });
   });
 
-  it('CT8: Atualização de perfil com sucesso (FVFF)', (done) => {
+  it('Atualização de perfil com sucesso', (done) => {
     const mockUser = { save: sinon.stub().yields(null) };
     userStub.yields(null, mockUser);
 
