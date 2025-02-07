@@ -4,6 +4,9 @@ var nodemailer = require('nodemailer');
 var passport = require('passport');
 var User = require('../models/User');
 
+const validCountries = require("../countries.json");
+const User = require("../models/User");
+
 /**
  * GET /login
  */
@@ -121,6 +124,21 @@ exports.accountPut = function(req, res, next) {
     req.assert('email', 'Este e-mail não é válido.').isEmail();
     req.assert('email', 'O campo "Email" precisa ser preenchido.').notEmpty();
     req.sanitize('email').normalizeEmail({ remove_dots: false });
+  }
+  
+  //Verificar se o campo "Local" foi preenchido
+  if (!req.body.location) {
+    return res.status(400).json({ error: "O campo 'Local' é obrigatório." });
+  }
+
+  //Verificar se a lista de países está vazia
+  if (!validCountries || validCountries.length === 0) {
+    return res.status(500).json({ error: "Erro interno: lista de países vazia." });
+  }
+
+  //Validação do campo "Local".
+  if (!validCountries.includes(req.body.location)) {
+    return res.status(400).json({ error: "Local inválido. Insira um país válido." });
   }
 
   var errors = req.validationErrors();
